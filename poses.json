@@ -1,0 +1,10 @@
+{
+  "rest": {
+    "shoulder_pan": -4.9,
+    "shoulder_lift": -100.7,
+    "elbow_flex": 97.1,
+    "wrist_flex": 81.5,
+    "wrist_roll": -0.0,
+    "gripper": 2.4
+  }
+}

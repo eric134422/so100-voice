@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "so100-voice"
+version = "1.0.0"
+description = "Talk to a real SO-100 robot arm: LiveKit voice agent, KugelAudio speech, Dream-1 vision planner, safety-checked motion"
+requires-python = ">=3.12, <3.15"
+
+dependencies = [
+    "dreamlabs-client>=1.0.9",
+    "kugelaudio[livekit]>=2.3.0",
+    "lerobot[feetech,hardware]>=0.6.1",
+    "livekit-agents~=1.8",
+    "livekit-plugins-ai-coustics~=0.3",
+    "python-dotenv",
+    "rerun-sdk>=0.39.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+]
+
+[tool.uv]
+# yarl 1.24.1 was published with only a cp310 wheel and no sdist, so it can't
+# install on Python 3.11+. Remove this once upstream uploads the remaining wheels.
+constraint-dependencies = ["yarl<1.24"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+pythonpath = ["src"]
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "B", "A", "C4", "UP", "SIM", "RUF"]
+ignore = ["E501"]  # Line too long (handled by formatter)
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
